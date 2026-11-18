@@ -1,5 +1,5 @@
 import { memo, useRef, useState } from "react";
-import { Copy, Check, FileText, Pause, Volume2, Info, AlertTriangle } from "lucide-react";
+import { Copy, Check, FileText, Pause, Volume2, Info, AlertTriangle, Mic } from "lucide-react";
 import type { Message } from "@novabot/shared";
 import { renderMarkdown } from "../lib/markdown";
 import { hhmm, cls } from "../lib/format";
@@ -35,38 +35,38 @@ export const MessageItem = memo(function MessageItem({ m, streamingText }: { m: 
   if (mine) {
     return (
       <div className="group flex flex-col items-end msg-in">
-        <div className="text-[11px] text-fg3 mb-1 px-1 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity max-md:opacity-100">
-          {meta.authorName && meta.authorName !== meName && <span className="font-medium text-fg2">{meta.authorName}</span>}
-          {meta.source && meta.source !== "pwa" && <span className="chip h-[18px] px-1.5 text-[10.5px]">{meta.source}</span>}
-          <span>{hhmm(m.createdAt)}</span>
-        </div>
-        <div className="rounded-[20px] rounded-br-md px-4 py-2.5 max-w-[88%] md:max-w-[75%] bg-bg3 border border-line2 text-[14.5px]">
-          {meta.voice && <div className="text-[11.5px] text-fg3 mb-1">🎙️ message vocal</div>}
+        {(meta.authorName && meta.authorName !== meName) || (meta.source && meta.source !== "pwa") ? (
+          <div className="text-[11px] text-fg3 mb-1 px-1 flex items-center gap-2">
+            {meta.authorName && meta.authorName !== meName && <span className="font-medium text-fg2">{meta.authorName}</span>}
+            {meta.source && meta.source !== "pwa" && <span className="chip h-[18px] px-1.5 text-[10.5px]">{meta.source}</span>}
+          </div>
+        ) : null}
+        <div className="bubble-me px-4 py-2.5 max-w-[85%] md:max-w-[78%] text-[15px] leading-[1.6]">
+          {meta.voice && <div className="text-[11.5px] text-fg3 mb-1 flex items-center gap-1"><Mic size={11} />message vocal</div>}
           <div className="md" dangerouslySetInnerHTML={{ __html: html }} />
         </div>
         {Atts}
+        <div className="h-6 mt-0.5 px-1 flex items-center gap-1 text-[11px] text-fg3 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity max-md:opacity-100">
+          <span className="tabular-nums">{hhmm(m.createdAt)}</span>
+          {m.content && <CopyButton text={m.content} />}
+        </div>
       </div>
     );
   }
 
-  // assistant : sans bulle, pleine largeur lisible
+  // assistant : sans bulle, pleine largeur lisible ; actions sous le message
   return (
-    <div className="group flex gap-3 msg-in">
+    <div className="group flex gap-3 md:gap-4 msg-in">
       <div className={cls("orb mt-0.5", streamingText && "orb-think")} />
       <div className="flex-1 min-w-0">
-        <div className="text-[12px] text-fg3 mb-1 flex items-center gap-2 h-5">
-          <span className="font-semibold text-fg">Novabot</span>
-          {meta.provider && <span className="chip h-[18px] px-1.5 text-[10.5px]">{meta.provider}{meta.model ? ` · ${meta.model}` : ""}</span>}
-          <span>{hhmm(m.createdAt)}</span>
-          {!streamingText && m.content && (
-            <span className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity max-md:opacity-100">
-              <CopyButton text={m.content} />
-              <TtsButton text={m.content} />
-            </span>
-          )}
-        </div>
-        <div className={cls("md text-[14.5px] leading-[1.65]", streamingText && "caret")} dangerouslySetInnerHTML={{ __html: html }} />
+        <div className={cls("md prose-chat pt-[2px]", streamingText && "caret")} dangerouslySetInnerHTML={{ __html: html }} />
         {Atts}
+        <div className={cls("h-7 mt-1 -ml-1.5 flex items-center gap-0.5 text-[11px] text-fg3 transition-opacity", streamingText ? "invisible" : "opacity-0 group-hover:opacity-100 focus-within:opacity-100 max-md:opacity-100")}>
+          {m.content && <CopyButton text={m.content} />}
+          {m.content && <TtsButton text={m.content} />}
+          <span className="ml-1.5 tabular-nums">{hhmm(m.createdAt)}</span>
+          {meta.provider && <span className="ml-1.5 truncate">{meta.provider}{meta.model ? ` · ${meta.model}` : ""}</span>}
+        </div>
       </div>
     </div>
   );
@@ -75,8 +75,8 @@ export const MessageItem = memo(function MessageItem({ m, streamingText }: { m: 
 function CopyButton({ text }: { text: string }) {
   const [ok, setOk] = useState(false);
   return (
-    <button onClick={() => navigator.clipboard?.writeText(text).then(() => { setOk(true); setTimeout(() => setOk(false), 1200); })} className="icon-btn w-6 h-6" title="Copier" aria-label="Copier">
-      {ok ? <Check size={12} className="text-ok" /> : <Copy size={12} />}
+    <button onClick={() => navigator.clipboard?.writeText(text).then(() => { setOk(true); setTimeout(() => setOk(false), 1200); })} className="icon-btn w-7 h-7" title="Copier" aria-label="Copier">
+      {ok ? <Check size={13} className="text-ok" /> : <Copy size={13} />}
     </button>
   );
 }
@@ -101,8 +101,8 @@ function TtsButton({ text }: { text: string }) {
     } catch { setState("idle"); }
   };
   return (
-    <button onClick={play} className="icon-btn w-6 h-6" title="Écouter" aria-label="Écouter">
-      {state === "playing" ? <Pause size={12} /> : <Volume2 size={12} className={state === "loading" ? "animate-pulse" : ""} />}
+    <button onClick={play} className="icon-btn w-7 h-7" title="Écouter" aria-label="Écouter">
+      {state === "playing" ? <Pause size={13} /> : <Volume2 size={13} className={state === "loading" ? "animate-pulse" : ""} />}
     </button>
   );
 }

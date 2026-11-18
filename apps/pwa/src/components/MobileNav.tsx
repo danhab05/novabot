@@ -16,7 +16,7 @@ export function MobileNav() {
     { id: "cockpit", label: "Cockpit", icon: <LayoutDashboard size={20} />, badge: waiting },
   ];
   return (
-    <nav className="md:hidden shrink-0 glass hairline-t flex safe-bottom px-1">
+    <nav className="mobile-nav md:hidden shrink-0 glass hairline-t flex safe-bottom px-1">
       {items.map((it) => {
         const on = tab === it.id;
         return (

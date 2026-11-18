@@ -1,5 +1,5 @@
 // Service worker Novabot : cache de la coquille + notifications push.
-const CACHE = "novabot-shell-v3";
+const CACHE = "novabot-shell-v4";
 const SHELL = ["/", "/index.html", "/manifest.webmanifest", "/favicon.ico", "/logo-256.png", "/icon-192.png"];
 
 self.addEventListener("install", (e) => {

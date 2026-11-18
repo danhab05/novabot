@@ -51,7 +51,10 @@ function privateOverwrites(ctx: Ctx, g: Guild) {
 
 async function ensureCategory(ctx: Ctx, g: Guild, key: string, name: string) {
   const known = getSetting(ctx, `discord.cat.${key}`);
-  if (known) { const c = g.channels.cache.get(known) ?? (await g.channels.fetch(known).catch(() => null)); if (c) return c.id; }
+  if (known) {
+    const c = g.channels.cache.get(known) ?? (await g.channels.fetch(known).catch(() => null));
+    if (c) { if (c.name !== name) await c.setName(name).catch(() => {}); return c.id; } // dossier renommé -> catégorie renommée
+  }
   const existing = g.channels.cache.find((c) => c.type === ChannelType.GuildCategory && c.name === name);
   const cat = existing ?? (await g.channels.create({ name, type: ChannelType.GuildCategory, permissionOverwrites: privateOverwrites(ctx, g) }));
   setSetting(ctx, `discord.cat.${key}`, cat.id);
@@ -59,9 +62,16 @@ async function ensureCategory(ctx: Ctx, g: Guild, key: string, name: string) {
 }
 
 async function syncProject(ctx: Ctx, g: Guild, p: Project) {
-  if (p.discordChannelId && (g.channels.cache.get(p.discordChannelId) ?? (await g.channels.fetch(p.discordChannelId).catch(() => null)))) return;
   const folder = p.folderId ? fromRow<Folder>(ctx.db.query("SELECT * FROM folders WHERE id = ?").get(p.folderId)) : null;
   const catId = await ensureCategory(ctx, g, folder?.id ?? "divers", CATEGORY_PREFIX + (folder?.name ?? "Divers"));
+  const cur = p.discordChannelId ? ((g.channels.cache.get(p.discordChannelId) ?? (await g.channels.fetch(p.discordChannelId).catch(() => null))) as TextChannel | null) : null;
+  if (cur) {
+    // projet déplacé de dossier -> le salon suit (permissions du salon conservées)
+    if (cur.parentId !== catId) await cur.setParent(catId, { lockPermissions: false }).catch((e) => ctx.log("discord", `déplacement ${p.id}`, e?.message));
+    const topic = `${p.name}${p.path ? " — " + p.path : ""} · Novabot`;
+    if (cur.topic !== topic) await cur.setTopic(topic).catch(() => {});
+    return;
+  }
   // réutilise un salon Novabot déjà créé (même nom, dans la catégorie Novabot) — jamais un salon Hermes
   const existing = g.channels.cache.find((c) => c.type === ChannelType.GuildText && c.parentId === catId && c.name === p.id);
   const ch = existing ?? (await g.channels.create({ name: p.id, type: ChannelType.GuildText, parent: catId, topic: `${p.name}${p.path ? " — " + p.path : ""} · Novabot` }));

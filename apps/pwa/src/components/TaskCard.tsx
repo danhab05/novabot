@@ -81,7 +81,7 @@ export function TaskCard({ task, compact = false }: { task: Task; compact?: bool
   };
 
   return (
-    <div className={cls("card msg-in transition-shadow", compact ? "p-3" : "p-4", working && "halo")}>
+    <div className={cls("card msg-in transition-shadow", !compact && "task-card", compact ? "p-3" : "p-4", working && "halo")}>
       <div className="flex items-start gap-3">
         <div className={cls("shrink-0 rounded-xl flex items-center justify-center bg-bg3 border border-line", compact ? "w-8 h-8" : "w-9 h-9")}>
           {task.agentKind === "codex" ? <CodexIcon size={16} /> : <ClaudeIcon size={16} />}
