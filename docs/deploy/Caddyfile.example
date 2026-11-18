@@ -1,0 +1,12 @@
+# Caddy reverse proxy for Novabot (automatic HTTPS via Let's Encrypt).
+# Replace novabot.example.com with your domain (A/AAAA record pointing to this server)
+# and the upstream with NOVABOT_HOST:NOVABOT_PORT.
+novabot.example.com {
+	encode zstd gzip
+
+	reverse_proxy 127.0.0.1:8790 {
+		# Required: Novabot streams answers (SSE) and live browser/terminal frames.
+		# Without this Caddy buffers responses and the PWA looks frozen.
+		flush_interval -1
+	}
+}

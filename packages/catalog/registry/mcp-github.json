@@ -1,0 +1,4 @@
+{ "id": "mcp-github", "type": "mcp", "name": "GitHub (gh CLI)", "version": "1.0.0",
+  "description": "Dépôts, PR, issues et checks CI via la CLI gh déjà connectée (gh auth login).",
+  "author": "Novabot", "permissions": ["gh CLI"],
+  "mcp": { "builtin": "github" } }

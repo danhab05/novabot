@@ -1,0 +1,4 @@
+{ "id": "mcp-google-calendar", "type": "mcp", "name": "Google Agenda", "version": "1.0.0",
+  "description": "Lecture de l'agenda du jour et des prochains événements, création d'événements et de rappels.",
+  "author": "Novabot", "permissions": ["calendar.events"],
+  "mcp": { "builtin": "google-calendar" } }

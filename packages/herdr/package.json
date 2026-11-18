@@ -1,0 +1,14 @@
+{
+  "name": "@novabot/herdr",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@novabot/shared": "workspace:*",
+    "@novabot/daemon": "workspace:*"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./sessions": "./src/sessions.ts"
+  }
+}

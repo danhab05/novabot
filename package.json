@@ -1,0 +1,20 @@
+{
+  "name": "novabot",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "bun --watch apps/daemon/src/index.ts",
+    "start": "bun apps/daemon/src/index.ts",
+    "build:pwa": "cd apps/pwa && bun run build",
+    "test": "for p in packages/* apps/pwa; do [ -d $p/test ] || ls $p/src/*.test.* >/dev/null 2>&1 || continue; (cd $p && NOVABOT_SKIP_HERMES_IMPORT=1 bun test) || exit 1; done",
+    "typecheck": "tsc --noEmit -p ."
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "@types/bun": "latest"
+  }
+}

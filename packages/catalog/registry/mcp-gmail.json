@@ -1,0 +1,4 @@
+{ "id": "mcp-gmail", "type": "mcp", "name": "Gmail", "version": "1.0.0",
+  "description": "Recherche, lecture et brouillons Gmail via l'intégration Google de Novabot. L'envoi en ton nom reste soumis à validation (ask_owner).",
+  "author": "Novabot", "permissions": ["gmail.readonly", "gmail.compose"],
+  "mcp": { "builtin": "google-gmail" } }

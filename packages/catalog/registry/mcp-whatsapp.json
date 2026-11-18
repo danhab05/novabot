@@ -1,0 +1,4 @@
+{ "id": "mcp-whatsapp", "type": "mcp", "name": "WhatsApp (lecture)", "version": "1.0.0",
+  "description": "Lecture de la boîte WhatsApp privée via le bridge local (commande wa). Envoi uniquement sur validation.",
+  "author": "Novabot", "permissions": ["whatsapp lecture", "whatsapp envoi (réservé)"],
+  "mcp": { "builtin": "whatsapp" } }

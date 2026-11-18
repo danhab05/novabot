@@ -1,0 +1,5 @@
+{ "id": "mcp-stripe", "type": "mcp", "name": "Stripe (officiel)", "version": "1.0.0",
+  "description": "Serveur MCP officiel Stripe (@stripe/mcp). Clé lue depuis STRIPE_SECRET_KEY (préférer une clé restreinte).",
+  "author": "Stripe", "permissions": ["API Stripe"],
+  "secrets": [{ "key": "STRIPE_SECRET_KEY", "label": "Clé secrète ou restreinte Stripe" }],
+  "mcp": { "command": "npx", "args": ["-y", "@stripe/mcp"] } }

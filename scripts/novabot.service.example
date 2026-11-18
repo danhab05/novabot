@@ -1,0 +1,26 @@
+# Novabot daemon — systemd unit template.
+# scripts/install.sh renders this file with your values (or replace the placeholders by hand):
+#   __USER__  user running Novabot          __HOME__  that user's home directory
+#   __REPO__  absolute path of this repo    __BUN__   absolute path of the bun binary
+# Then: sudo cp novabot.service /etc/systemd/system/ && sudo systemctl daemon-reload && sudo systemctl enable --now novabot
+[Unit]
+Description=Novabot — personal AI harness (daemon)
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=__USER__
+WorkingDirectory=__REPO__
+ExecStart=__BUN__ apps/daemon/src/index.ts
+Restart=always
+RestartSec=3
+Environment=HOME=__HOME__
+Environment=PATH=__HOME__/.bun/bin:__HOME__/.local/bin:/usr/local/bin:/usr/bin:/bin
+# Configuration lives in __HOME__/.novabot/secrets.env (see .env.example).
+MemoryMax=1G
+StandardOutput=append:__HOME__/.novabot/novabot.log
+StandardError=append:__HOME__/.novabot/novabot.log
+
+[Install]
+WantedBy=multi-user.target

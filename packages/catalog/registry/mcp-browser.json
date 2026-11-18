@@ -1,0 +1,4 @@
+{ "id": "mcp-browser", "type": "mcp", "name": "Navigateur partagé (Playwright CDP)", "version": "1.0.0",
+  "description": "Pilote le Chrome partagé du serveur (CDP 127.0.0.1:9222), connecté à tes comptes.",
+  "author": "Novabot", "permissions": ["navigateur connecté aux comptes"],
+  "mcp": { "command": "npx", "args": ["-y", "@playwright/mcp@latest", "--cdp-endpoint", "http://127.0.0.1:9222", "--output-dir", "/tmp/playwright-mcp"] } }

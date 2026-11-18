@@ -1,0 +1,13 @@
+{
+  "name": "@novabot/brain",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./memory": "./src/memory.ts"
+  },
+  "dependencies": {
+    "@novabot/shared": "workspace:*",
+    "@novabot/daemon": "workspace:*"
+  }
+}

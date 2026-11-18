@@ -1,0 +1,5 @@
+{ "id": "mcp-supabase", "type": "mcp", "name": "Supabase (officiel)", "version": "1.0.0",
+  "description": "Serveur MCP officiel Supabase (@supabase/mcp-server-supabase), en lecture seule par défaut.",
+  "author": "Supabase", "permissions": ["Supabase Management API"],
+  "secrets": [{ "key": "SUPABASE_ACCESS_TOKEN", "label": "Jeton d'accès personnel Supabase" }],
+  "mcp": { "command": "npx", "args": ["-y", "@supabase/mcp-server-supabase@latest", "--read-only"] } }

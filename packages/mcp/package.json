@@ -1,0 +1,10 @@
+{
+  "name": "@novabot/mcp",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@novabot/shared": "workspace:*",
+    "@novabot/daemon": "workspace:*"
+  }
+}

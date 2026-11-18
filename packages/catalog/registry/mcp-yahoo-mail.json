@@ -1,0 +1,5 @@
+{ "id": "mcp-yahoo-mail", "type": "mcp", "name": "Yahoo Mail (IMAP)", "version": "1.0.0",
+  "description": "Recherche et lecture de la boîte Yahoo via IMAP (mot de passe d'application Yahoo).",
+  "author": "Novabot", "permissions": ["imap lecture"],
+  "secrets": [{ "key": "YAHOO_EMAIL", "label": "Adresse Yahoo" }, { "key": "YAHOO_APP_PASSWORD", "label": "Mot de passe d'application Yahoo" }],
+  "mcp": { "builtin": "yahoo" } }

@@ -1,0 +1,10 @@
+{
+  "name": "@novabot/proactive",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@novabot/shared": "workspace:*",
+    "@novabot/daemon": "workspace:*"
+  }
+}

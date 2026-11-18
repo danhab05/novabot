@@ -1,0 +1,4 @@
+{ "id": "mcp-google-drive", "type": "mcp", "name": "Google Drive / Docs", "version": "1.0.0",
+  "description": "Recherche et lecture des fichiers Drive (Docs exportés en texte).",
+  "author": "Novabot", "permissions": ["drive.readonly"],
+  "mcp": { "builtin": "google-drive" } }

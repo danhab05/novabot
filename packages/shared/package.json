@@ -1,0 +1,1 @@
+{ "name": "@novabot/shared", "private": true, "type": "module", "main": "src/index.ts" }

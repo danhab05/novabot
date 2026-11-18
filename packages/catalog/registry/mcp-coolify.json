@@ -1,0 +1,4 @@
+{ "id": "mcp-coolify", "type": "mcp", "name": "Coolify", "version": "1.0.0",
+  "description": "Applications Coolify (COOLIFY_URL) : liste, statut des déploiements, logs, redéploiement.",
+  "author": "Novabot", "permissions": ["API Coolify"],
+  "mcp": { "builtin": "coolify" } }
