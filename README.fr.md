@@ -1,4 +1,6 @@
-# Novabot
+<p align="center"><img src="docs/assets/logo.png" alt="Novabot logo" width="160" /></p>
+
+<h1 align="center">Novabot</h1>
 
 **Un harness IA personnel, toujours allumé, sur ton propre serveur.**
 

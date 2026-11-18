@@ -1,6 +1,8 @@
-# Novabot
+<p align="center"><img src="docs/assets/logo.png" alt="Novabot logo" width="160" /></p>
 
-**An always-on personal AI harness that runs on your own server.**
+<h1 align="center">Novabot</h1>
+
+<p align="center"><b>An always-on personal AI harness that runs on your own server.</b></p>
 
 Novabot keeps a conversational brain online 24/7, using the AI subscriptions you already pay for,
 and hands heavy coding work to Claude Code / Codex agents running in visible, resumable terminals.
